@@ -1,7 +1,12 @@
 import React from "react";
+import MenuListComposition from "./NavigationBar";
 
 const Header = () => {
-  return <div>hi</div>;
+  return (
+    <div>
+      <MenuListComposition />
+    </div>
+  );
 };
 
 export default Header;
