@@ -8,25 +8,32 @@ import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
+import { useNavigate } from "react-router-dom";
+import { margin } from "@mui/system";
 
 export default function MenuListComposition() {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
+  const navigate = useNavigate();
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleClose = (event: Event | React.SyntheticEvent) => {
-    if (
-      anchorRef.current &&
-      anchorRef.current.contains(event.target as HTMLElement)
-    ) {
-      return;
-    }
+  const handleClose =
+    (page: string) => (event: Event | React.SyntheticEvent) => {
+      if (
+        anchorRef.current &&
+        anchorRef.current.contains(event.target as HTMLElement)
+      ) {
+        return;
+      }
+      if (page) {
+        navigate(page);
+      }
 
-    setOpen(false);
-  };
+      setOpen(false);
+    };
 
   function handleListKeyDown(event: React.KeyboardEvent) {
     if (event.key === "Tab") {
@@ -37,7 +44,6 @@ export default function MenuListComposition() {
     }
   }
 
-  // return focus to the button when we transitioned from !open -> open
   const prevOpen = React.useRef(open);
   React.useEffect(() => {
     if (prevOpen.current === true && open === false) {
@@ -51,13 +57,14 @@ export default function MenuListComposition() {
     <Stack direction="row" spacing={2}>
       <Button
         ref={anchorRef}
+        className="menu-icon"
         id="composition-button"
         aria-controls={open ? "composition-menu" : undefined}
         aria-expanded={open ? "true" : undefined}
         aria-haspopup="true"
         onClick={handleToggle}
       >
-        <MenuIcon />
+        <MenuIcon style={{ color: "#000000", fontSize: "50px" }} />
       </Button>
       <Popper
         open={open}
@@ -76,17 +83,19 @@ export default function MenuListComposition() {
             }}
           >
             <Paper>
-              <ClickAwayListener onClickAway={handleClose}>
+              <ClickAwayListener onClickAway={handleClose("")}>
                 <MenuList
                   autoFocusItem={open}
                   id="composition-menu"
                   aria-labelledby="composition-button"
                   onKeyDown={handleListKeyDown}
                 >
-                  <MenuItem onClick={handleClose}>Home</MenuItem>
-                  <MenuItem onClick={handleClose}>Selection</MenuItem>
-                  <MenuItem onClick={handleClose}>Match</MenuItem>
-                  <MenuItem onClick={handleClose}>Archive</MenuItem>
+                  <MenuItem onClick={handleClose("/")}>Home</MenuItem>
+                  <MenuItem onClick={handleClose("/selection")}>
+                    Selection
+                  </MenuItem>
+                  <MenuItem onClick={handleClose("/match")}>Match</MenuItem>
+                  {/* <MenuItem onClick={handleClose}>Archive</MenuItem> */}
                 </MenuList>
               </ClickAwayListener>
             </Paper>
