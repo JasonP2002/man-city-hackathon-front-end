@@ -1,10 +1,14 @@
 import React, { ReactNode } from "react";
 import Header from "./header";
 
-interface Props {
+export interface ILayoutProps {
   children?: ReactNode;
 }
-const Layout = ({ children, ...props }: Props) => {
+
+const Layout: React.FunctionComponent<ILayoutProps> = ({
+  children,
+  ...props
+}) => {
   return (
     <>
       <Header />
@@ -12,5 +16,4 @@ const Layout = ({ children, ...props }: Props) => {
     </>
   );
 };
-
 export default Layout;
