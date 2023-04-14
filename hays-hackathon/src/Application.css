@@ -7,3 +7,17 @@ body{
     background-color: #6CABDD;
 }
 
+/*Match Page*/
+.droppable {
+    width: 800px;
+    height: 200px;
+    color: white;
+    text-align: center;
+}
+.player {
+    width: 75px;
+    height: 75px;
+    color: white;
+    background-color: black;
+    text-align: center;
+}
