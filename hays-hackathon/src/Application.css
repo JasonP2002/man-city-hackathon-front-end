@@ -21,3 +21,17 @@ body{
     background-color: black;
     text-align: center;
 }
+.field {
+    width: 1500px;
+    height: 600px;
+    background-color: darkgreen;
+    
+    display: grid;
+    grid-template-columns: repeat(3, 500px);
+    column-gap: 10px;
+    row-gap: 1em;
+}
+.position {
+    width: 75px;
+    height: 75px;
+}

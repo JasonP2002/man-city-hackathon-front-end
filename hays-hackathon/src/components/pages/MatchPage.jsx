@@ -36,10 +36,33 @@ const MatchPage = (props) => {
   function handleDragEnd(event) {
     const {over, active} = event;
     if (over && active) { //If draggable dropped into droppable
+
+      let newDropZones = dropZones
+      //Check if player dropped over a position
+      const droppable = (over.id).split('-')
+
+      if (droppable[0] === 'position') {
+        const positionFill = checkPositions(droppable[1])
+        //If position is already filled, send player in position back to available droppable
+        if (positionFill !== -1) {
+          newDropZones = dropZones.slice(0, positionFill).concat(['avail-droppable'].concat(dropZones.slice(positionFill+1, dropZones.length)))
+        }
+      }
+
       const index = parseInt((active.id).split(':')[1]); //Get id of draggable
       //Change dropzone for dropped draggable
-      setDropZones(dropZones.slice(0, index).concat([over.id].concat(dropZones.slice(index+1, dropZones.length))));
+      setDropZones(newDropZones.slice(0, index).concat([over.id].concat(newDropZones.slice(index+1, newDropZones.length))));
     }
+  }
+
+  //Checks if certain position is already filled
+  const checkPositions= (positionid) => {
+    for (let i = 0; i < dropZones.length; i++) {
+      if (dropZones[i].split('-')[1] === positionid) {
+        return i;
+      } 
+    }
+    return -1;
   }
 
   return (
@@ -49,12 +72,9 @@ const MatchPage = (props) => {
         <DndContext onDragEnd={handleDragEnd} >
           <h1>Match</h1>
 
-          <Field key='field-droppable' id='field-droppable'>
-            <h2>Field</h2>
-            {players.filter((_, i) => dropZones[i] === 'field-droppable')}
-          </Field>
+          <Field key='field-droppable' id='field-droppable' players={players} dropZones={dropZones} />
 
-          <Bench key='bench-droppable' id='bench-droppable'>
+          <Bench key='bench-droppable' id='bench-droppable' >
             <h2>Bench</h2>
             {players.filter((_, i) => dropZones[i] === 'bench-droppable')}
           </Bench>

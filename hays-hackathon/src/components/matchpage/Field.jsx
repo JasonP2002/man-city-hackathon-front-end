@@ -1,16 +1,14 @@
-import {useDroppable} from '@dnd-kit/core';
+import Position from '../matchpage/Position';
+
+const positions = ["0", "1", "2", "3", "4", "5"]
 
 const Field = (props) => {
-  const {isOver, setNodeRef} = useDroppable({
-    id: props.id,
-  });
-  const style = {
-    backgroundColor: isOver ? 'red' : 'darkgreen',
-  };
-
   return (
-    <div className="droppable field" ref={setNodeRef} style={style}>
-      {props.children}
+    <div className="field">
+      <h2>Field</h2>
+      {positions.map(
+        (index) => <Position key={"position-"+positions[index]} id={"position-"+positions[index]} players={props.players} dropZones={props.dropZones} />
+      )}
     </div>
   );
 };
