@@ -1,9 +1,9 @@
-import MenuListComposition from "./NavigationBar";
+import NavBar from "./NavigationBar";
 
 const Header = () => {
   return (
     <h1>
-      <MenuListComposition />
+      <NavBar />
     </h1>
   );
 };

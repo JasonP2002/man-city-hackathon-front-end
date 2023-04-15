@@ -10,7 +10,7 @@ import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
 import { useNavigate } from "react-router-dom";
 
-export default function MenuListComposition() {
+export default function NavBar() {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
   const navigate = useNavigate();
