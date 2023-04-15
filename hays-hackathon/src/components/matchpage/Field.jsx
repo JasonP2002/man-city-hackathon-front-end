@@ -1,6 +1,7 @@
 import Position from '../matchpage/Position';
 
-const positions = ["0", "1", "2", "3", "4", "5"]
+const playersOnField = 11;
+const positions = Array.from({length: playersOnField}, (_, i) => (i + 1).toString())
 
 const Field = (props) => {
   return (

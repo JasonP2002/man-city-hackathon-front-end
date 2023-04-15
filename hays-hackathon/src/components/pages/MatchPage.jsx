@@ -9,7 +9,7 @@ import { DndContext } from '@dnd-kit/core';
 
 import Player from '../matchpage/Player';
 
-const num_players = 4;
+const num_players = 11;
 
 const generatePlayers = () => {
   let players = []
