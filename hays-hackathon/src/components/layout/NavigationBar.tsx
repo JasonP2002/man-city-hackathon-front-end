@@ -1,106 +1,57 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
 import MenuIcon from "@mui/icons-material/Menu";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
-import Grow from "@mui/material/Grow";
-import Paper from "@mui/material/Paper";
-import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
-import MenuList from "@mui/material/MenuList";
-import Stack from "@mui/material/Stack";
 import { useNavigate } from "react-router-dom";
+import { IconButton, Menu } from "@mui/material";
 
 export default function MenuListComposition() {
-  const [open, setOpen] = React.useState(false);
-  const anchorRef = React.useRef<HTMLButtonElement>(null);
-  const navigate = useNavigate();
-
-  const handleToggle = () => {
-    setOpen((prevOpen) => !prevOpen);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
   };
+  const navigate = useNavigate();
 
   const handleClose =
     (page: string) => (event: Event | React.SyntheticEvent) => {
-      if (
-        anchorRef.current &&
-        anchorRef.current.contains(event.target as HTMLElement)
-      ) {
-        return;
-      }
-      if (page) {
-        navigate(page);
-      }
-
-      setOpen(false);
+      setAnchorEl(null);
+      navigate(page);
     };
 
-  function handleListKeyDown(event: React.KeyboardEvent) {
-    if (event.key === "Tab") {
-      event.preventDefault();
-      setOpen(false);
-    } else if (event.key === "Escape") {
-      setOpen(false);
-    }
-  }
-
-  const prevOpen = React.useRef(open);
-  React.useEffect(() => {
-    if (prevOpen.current === true && open === false) {
-      anchorRef.current!.focus();
-    }
-
-    prevOpen.current = open;
-  }, [open]);
-
   return (
-    <Stack direction="row" spacing={2}>
-      <Button
-        ref={anchorRef}
-        className="menu-icon"
-        id="composition-button"
-        aria-controls={open ? "composition-menu" : undefined}
-        aria-expanded={open ? "true" : undefined}
-        aria-haspopup="true"
-        onClick={handleToggle}
-      >
-        <MenuIcon style={{ color: "#000000", fontSize: "50px" }} />
-      </Button>
-      <Popper
+    <div>
+      <ClickAwayListener onClickAway={handleClose("")}>
+        <IconButton
+          id="demo-positioned-button"
+          aria-controls={open ? "demo-positioned-menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? "true" : undefined}
+          onClick={handleClick}
+        >
+          <MenuIcon />
+        </IconButton>
+      </ClickAwayListener>
+      <Menu
+        id="demo-positioned-menu"
+        aria-labelledby="demo-positioned-button"
+        anchorEl={anchorEl}
         open={open}
-        anchorEl={anchorRef.current}
-        role={undefined}
-        placement="bottom-start"
-        transition
-        disablePortal
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
       >
-        {({ TransitionProps, placement }) => (
-          <Grow
-            {...TransitionProps}
-            style={{
-              transformOrigin:
-                placement === "bottom-start" ? "left top" : "left bottom",
-            }}
-          >
-            <Paper>
-              <ClickAwayListener onClickAway={handleClose("")}>
-                <MenuList
-                  autoFocusItem={open}
-                  id="composition-menu"
-                  aria-labelledby="composition-button"
-                  onKeyDown={handleListKeyDown}
-                >
-                  <MenuItem onClick={handleClose("/")}>Home</MenuItem>
-                  <MenuItem onClick={handleClose("/selection")}>
-                    Selection
-                  </MenuItem>
-                  <MenuItem onClick={handleClose("/match")}>Match</MenuItem>
-                  <MenuItem onClick={handleClose("/archive")}>Archive</MenuItem>
-                </MenuList>
-              </ClickAwayListener>
-            </Paper>
-          </Grow>
-        )}
-      </Popper>
-    </Stack>
+        <MenuItem onClick={handleClose("/")}>Home</MenuItem>
+        <MenuItem onClick={handleClose("/selection")}>Selection</MenuItem>
+        <MenuItem onClick={handleClose("/match")}>Match</MenuItem>
+        <MenuItem onClick={handleClose("/archive")}>Archive</MenuItem>
+      </Menu>
+    </div>
   );
 }
