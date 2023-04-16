@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import Layout from "../layout/layout";
 
+import ScoreBoard from '../matchpage/ScoreBoard';
+import TeamEnergy from '../matchpage/TeamEnergy';
 import Field from '../matchpage/Field';
 import Bench from '../matchpage/Bench';
 import Available from '../matchpage/Available';
@@ -70,20 +72,24 @@ const MatchPage = (props) => {
       <div className="match-page" >
         {/*Must wrap all drag-and-drop components in a DndContext*/}
         <DndContext onDragEnd={handleDragEnd} >
-          <h1>Match</h1>
+          <ScoreBoard />
+          
+          <div className="match-page-center">
+            <Field key='field-droppable' id='field-droppable' players={players} dropZones={dropZones} />
 
-          <Field key='field-droppable' id='field-droppable' players={players} dropZones={dropZones} />
-
-          <Bench key='bench-droppable' id='bench-droppable' >
-            <h2>Bench</h2>
-            {players.filter((_, i) => dropZones[i] === 'bench-droppable')}
-          </Bench>
+            <div className="match-details">
+              <TeamEnergy />
+              <Bench key='bench-droppable' id='bench-droppable' >
+                <h2>Bench</h2>
+                {players.filter((_, i) => dropZones[i] === 'bench-droppable')}
+              </Bench>
+            </div>
+          </div>
 
           <Available key='avail-droppable' id='avail-droppable'>
             <h2>Players</h2>
             {players.filter((_, i) => dropZones[i] === 'avail-droppable')}
           </Available>
-
         </DndContext>
       </div>
     </Layout>
