@@ -94,7 +94,7 @@ export default function MenuListComposition() {
                     Selection
                   </MenuItem>
                   <MenuItem onClick={handleClose("/match")}>Match</MenuItem>
-                  {/* <MenuItem onClick={handleClose}>Archive</MenuItem> */}
+                  <MenuItem onClick={handleClose("/archive")}>Archive</MenuItem>
                 </MenuList>
               </ClickAwayListener>
             </Paper>
