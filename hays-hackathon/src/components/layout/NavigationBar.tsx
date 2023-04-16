@@ -29,7 +29,7 @@ export default function MenuListComposition() {
           aria-expanded={open ? "true" : undefined}
           onClick={handleClick}
         >
-          <MenuIcon />
+          <MenuIcon style={{ color: "#000000", fontSize: "40px" }} />
         </IconButton>
       </ClickAwayListener>
       <Menu

@@ -5,6 +5,7 @@ import ErrorPage from "./components/pages/errorPage";
 import MatchPage from "./components/pages/MatchPage";
 import "./Application.css";
 import ArchivePage from "./components/pages/archivePage";
+import React from "react";
 
 export interface IApplicationProps {}
 

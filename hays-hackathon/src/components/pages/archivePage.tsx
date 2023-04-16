@@ -3,6 +3,7 @@ import Layout from "../layout/layout";
 import axios from "axios";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState } from "react";
+import { Box } from "@mui/system";
 
 export interface IArchivePageProps {}
 
@@ -42,9 +43,13 @@ const ArchivePage: React.FunctionComponent<IArchivePageProps> = (props) => {
   }
   return (
     <Layout>
-      <div style={{ height: 700, width: "100%" }}>
+      <Box
+        sx={{
+          height: 700,
+        }}
+      >
         <DataGrid rows={rows} columns={columns} checkboxSelection={false} />
-      </div>
+      </Box>
     </Layout>
   );
 };
