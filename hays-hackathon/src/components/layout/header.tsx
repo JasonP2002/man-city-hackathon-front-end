@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import MenuListComposition from "./NavigationBar";
+import MenuListComposition from "./navigationBar";
 import logo from "../../assets/logo.png";
 
 const Header = () => {
