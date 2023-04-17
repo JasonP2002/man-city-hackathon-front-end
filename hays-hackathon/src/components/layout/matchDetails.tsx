@@ -3,15 +3,14 @@ import Layout from "../layout/layout";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
+  Button,
   FormControl,
   FormControlLabel,
-  IconButton,
   Radio,
   RadioGroup,
 } from "@mui/material";
-import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useNavigate } from "react-router";
 
 export default function MatchDetails() {
@@ -25,6 +24,7 @@ export default function MatchDetails() {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLocation((event.target as HTMLInputElement).value);
   };
+
   const handleClose =
     (page: string) => (event: Event | React.SyntheticEvent) => {
       if (
@@ -50,52 +50,38 @@ export default function MatchDetails() {
     { label: "3-5-2", formationType: "offensive" },
     { label: "4-4-2", formationType: "defensive" },
   ];
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: "#D9D9D9",
-      },
-      secondary: {
-        light: "#0066ff",
-        main: "#000000",
-        contrastText: "#ffcc00",
-      },
-      contrastThreshold: 3,
-      tonalOffset: 0.2,
-    },
-  });
 
   return (
-    <ThemeProvider theme={theme}>
-      <Layout>
-        <Box
-          sx={{
-            width: 520,
-            height: 520,
-            marginLeft: 60,
-            marginBlockStart: 10,
-            backgroundColor: "primary.main",
-            borderRadius: 3,
-            paddingTop: 2,
-          }}
-        >
-          <h2>START NEW MATCH</h2>
-          <div>
-            <Autocomplete
-              disablePortal
-              id="dropdown"
-              options={teams}
-              isOptionEqualToValue={(options, value) =>
-                options.label === value.label
-              }
-              sx={{
-                padding: 1,
-              }}
-              onChange={(event, value) => setOpponent({ value })}
-              renderInput={(params) => (
-                <TextField {...params} label="Opponent" />
-              )}
-            />
+    <Layout>
+      <Box
+        sx={{
+          width: "60%",
+          height: 520,
+          marginLeft: 35,
+          marginBlockStart: 8,
+          backgroundColor: "#E6E6E6",
+        }}
+        border={4}
+        borderColor="black"
+        borderRadius={5}
+      >
+        <h2>START NEW MATCH</h2>
+        <div>
+          <Autocomplete
+            disablePortal
+            id="dropdown"
+            options={teams}
+            isOptionEqualToValue={(options, value) =>
+              options.label === value.label
+            }
+            sx={{
+              padding: 1,
+              margin: 2,
+            }}
+            onChange={(event, value) => setOpponent({ value })}
+            renderInput={(params) => <TextField {...params} label="Opponent" />}
+          />
+          <Box m={1} display="flex" justifyContent="center" alignItems="center">
             <FormControl>
               <RadioGroup
                 className="checkbox"
@@ -107,7 +93,7 @@ export default function MatchDetails() {
                 sx={{
                   marginBottom: 4,
                   marginTop: 4,
-                  marginLeft: 17,
+                  fontSize: 100,
                 }}
               >
                 <FormControlLabel
@@ -126,34 +112,52 @@ export default function MatchDetails() {
                 />
               </RadioGroup>
             </FormControl>
-            <Autocomplete
-              disablePortal
-              id="dropdown"
-              options={formations}
-              isOptionEqualToValue={(options, value) =>
-                options.label === value.label
-              }
+          </Box>
+          <Autocomplete
+            disablePortal
+            id="dropdown"
+            options={formations}
+            isOptionEqualToValue={(options, value) =>
+              options.label === value.label
+            }
+            sx={{
+              padding: 1,
+              margin: 2,
+            }}
+            onChange={(event, value) => setFormation({ value })}
+            renderInput={(params) => (
+              <TextField {...params} label="Formation" />
+            )}
+          />
+          <Box
+            m={1}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            marginTop={5}
+          >
+            <Button
+              variant="contained"
+              onClick={handleClose("selection")}
               sx={{
-                padding: 1,
+                width: "30%",
+                fontSize: "100",
+                border: 4,
+                borderColor: "#black",
+                backgroundColor: "#7cc644",
+                color: "black",
+                ":hover": {
+                  bgcolor: "#5cb800",
+                  color: "black",
+                },
               }}
-              onChange={(event, value) => setFormation({ value })}
-              renderInput={(params) => (
-                <TextField {...params} label="Formation" />
-              )}
-            />
-            <Box
-              m={1}
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
+              endIcon={<ArrowForwardIosIcon />}
             >
-              <IconButton aria-label="start" onClick={handleClose("selection")}>
-                <PlayArrowRoundedIcon id="playButton" />
-              </IconButton>
-            </Box>
-          </div>
-        </Box>
-      </Layout>
-    </ThemeProvider>
+              <h3>SELECT TEAM</h3>
+            </Button>
+          </Box>
+        </div>
+      </Box>
+    </Layout>
   );
 }
