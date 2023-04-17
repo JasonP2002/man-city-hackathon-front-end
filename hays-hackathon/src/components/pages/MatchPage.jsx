@@ -10,8 +10,9 @@ import Available from '../matchpage/Available';
 import { DndContext } from '@dnd-kit/core';
 
 import Player from '../matchpage/Player';
+import { useLocation } from 'react-router-dom';
 
-const num_players = 11;
+let num_players = 0
 
 const generatePlayers = () => {
   let players = []
@@ -34,7 +35,12 @@ const generateDropZones = () => {
 const MatchPage = (props) => {
   const [players, setPlayers] = useState(generatePlayers());
   const [dropZones, setDropZones] = useState(generateDropZones());
-  const [form, setForm] = useState('4-4-2');
+  const statee = useLocation().state
+  console.log(statee)
+  const [form, setForm] = useState(statee.form.value.label);
+  const [opp, setOpp] = useState(statee.opposition.value.shorthand);
+  const [numberOfPlayers, setNumberOfPlayers] = useState(statee.num_players);
+  num_players = numberOfPlayers
 
   function handleDragEnd(event) {
     const {over, active} = event;
@@ -73,7 +79,7 @@ const MatchPage = (props) => {
       <div className="match-page" >
         {/*Must wrap all drag-and-drop components in a DndContext*/}
         <DndContext onDragEnd={handleDragEnd} >
-          <ScoreBoard hometeam={"MCI"} homescore={"0"} awayteam={"ZZZ"} awayscore={"0"}/>
+          <ScoreBoard hometeam={"MCI"} homescore={"0"} awayteam={opp} awayscore={"0"}/>
           
           <div className="match-page-center">
             <Field key='field-droppable' id='field-droppable' players={players} dropZones={dropZones} form={form}/>

@@ -12,17 +12,25 @@ import {
 } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useNavigate } from "react-router";
+import axios from "axios";
 
 export default function MatchDetails() {
   const [location, setLocation] = React.useState("home");
   const [opponent, setOpponent] = useState({});
   const [formation, setFormation] = useState({});
+  const [num_players, setNumPlayers] = useState(0);
 
   const anchorRef = React.useRef<HTMLButtonElement>(null);
   const navigate = useNavigate();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLocation((event.target as HTMLInputElement).value);
+  };
+
+  const handleDisabled = (opp: object, f: object) => {
+    if (Object.keys(opp).length === 0 || Object.keys(f).length === 0) {
+      return true;
+    }
   };
 
   const handleClose =
@@ -35,10 +43,31 @@ export default function MatchDetails() {
       }
       if (page) {
         navigate(page, {
-          state: { opposition: opponent, form: formation, location: location },
+          state: {
+            opposition: opponent,
+            form: formation,
+            location: location,
+            num_players: data.length,
+          },
         });
       }
     };
+
+  const [data, setData] = useState("");
+  const getAllData = () => {
+    axios
+      .get("http://localhost:8888/player")
+      .then((response) => {
+        setData(response.data);
+        setNumPlayers(data.length);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  React.useEffect(() => {
+    getAllData();
+  }, []);
 
   const teams = [
     { label: "Manchester United", shorthand: "MUN" },
@@ -138,7 +167,8 @@ export default function MatchDetails() {
           >
             <Button
               variant="contained"
-              onClick={handleClose("selection")}
+              onClick={handleClose("match")}
+              disabled={handleDisabled(opponent, formation)}
               sx={{
                 width: "30%",
                 fontSize: "100",
