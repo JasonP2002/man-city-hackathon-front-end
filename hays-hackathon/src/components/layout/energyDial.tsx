@@ -13,7 +13,7 @@ export default function EnergyProgress() {
       sx={{
         position: "relative",
         display: "inline-flex",
-        marginLeft: 75,
+        marginLeft: 80,
         flexDirection: "column",
         alignItems: "center",
       }}

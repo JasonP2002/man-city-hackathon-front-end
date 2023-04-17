@@ -1,12 +1,27 @@
-import React from "react";
 import { Stack } from "@mui/material";
 import MenuListComposition from "./NavigationBar";
+import logo from "../../assets/logo.png";
 
 const Header = () => {
   return (
-    <Stack direction="row" mr={20} mb={2} alignItems="center" spacing={65}>
+    <Stack
+      direction="row"
+      mr={0.5}
+      mb={0.25}
+      padding={0}
+      alignItems="center"
+      spacing={74}
+      height="75px"
+    >
       <MenuListComposition />
-      <h1>ENERGY STATS</h1>
+      <div className="imageWrapper"></div>
+      <img
+        src={`${logo}?w=164&h=164&fit=crop&auto=format`}
+        alt=""
+        className="image"
+        width="320"
+        height="220"
+      />
     </Stack>
   );
 };

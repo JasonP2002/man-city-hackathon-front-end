@@ -70,12 +70,13 @@ export default function MatchDetails() {
       <Layout>
         <Box
           sx={{
-            width: 500,
-            height: 500,
+            width: 520,
+            height: 520,
             marginLeft: 60,
             marginBlockStart: 10,
             backgroundColor: "primary.main",
-            borderRadius: 2,
+            borderRadius: 3,
+            paddingTop: 2,
           }}
         >
           <h2>START NEW MATCH</h2>
@@ -103,10 +104,10 @@ export default function MatchDetails() {
                 onChange={handleChange}
                 aria-labelledby="checkbox"
                 name="position"
-                defaultValue="top"
                 sx={{
-                  marginLeft: 18,
-                  margin: 4,
+                  marginBottom: 4,
+                  marginTop: 4,
+                  marginLeft: 17,
                 }}
               >
                 <FormControlLabel
