@@ -6,10 +6,10 @@ const ScoreBoard = (props) => {
     const [awayscore, setAwayScore] = useState(props.awayscore)
     return (
         <div className="score-board">
-            <div className="scoreboard-team"><h4>{hometeam}</h4></div>
-            <div className="scoreboard-score"><h3>{homescore}</h3></div>
-            <div className="scoreboard-score"><h3>{awayscore}</h3></div>
-            <div className="scoreboard-team"><h4>{awayteam}</h4></div>
+            <div className="scoreboard-team"><h3>{hometeam}</h3></div>
+            <div className="scoreboard-score"><h2>{homescore}</h2></div>
+            <div className="scoreboard-score"><h2>{awayscore}</h2></div>
+            <div className="scoreboard-team"><h3>{awayteam}</h3></div>
         </div>
     )
 }

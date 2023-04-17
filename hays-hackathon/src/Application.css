@@ -58,12 +58,12 @@ h3 {
 }
 .droppable {
     width: 700px;
-    height: 120px;
+    height: auto;
     color: white;
     text-align: center;
 }
 .bench {
-    width: 300px;
+    width: 500px;
 }
 .player {
     width: 50px;
@@ -89,12 +89,17 @@ h3 {
     height: 60px;
     color: black;
     text-align: center;
+    display: flex;
+    align-items:center;
+    justify-content:center;
 }
 .scoreboard-score {
     width: 100px;
     height: 60px;
     background-color: black;
-    text-align: center;
+    display: flex;
+    align-items:center;
+    justify-content:center;
 }
 /*SCOREBOARD*/
 

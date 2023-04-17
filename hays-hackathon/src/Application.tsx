@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import HomePage from "./components/pages/home";
-import SelectionPage from "./components/pages/selectionPage";
-import ErrorPage from "./components/pages/errorPage";
-import MatchPage from "./components/pages/matchPage";
+import HomePage from "./components/pages/Home";
+import SelectionPage from "./components/pages/SelectionPage";
+import ErrorPage from "./components/pages/errorPage"
+import MatchPage from "./components/pages/MatchPage";
 import "./Application.css";
 import ArchivePage from "./components/pages/archivePage";
 import React from "react";
