@@ -1,10 +1,11 @@
-import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import HomePage from "./components/pages/Home";
-import SelectionPage from "./components/pages/SelectionPage";
+import HomePage from "./components/pages/home";
+import SelectionPage from "./components/pages/selectionPage";
 import ErrorPage from "./components/pages/errorPage";
-import MatchPage from "./components/pages/MatchPage";
+import MatchPage from "./components/pages/matchPage";
 import "./Application.css";
+import ArchivePage from "./components/pages/archivePage";
+import React from "react";
 
 export interface IApplicationProps {}
 
@@ -15,6 +16,7 @@ const Application: React.FunctionComponent<IApplicationProps> = (props) => {
         <Route path="/" element={<HomePage />} />
         <Route path="selection" element={<SelectionPage />} />
         <Route path="match" element={<MatchPage />} />
+        <Route path="archive" element={<ArchivePage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>

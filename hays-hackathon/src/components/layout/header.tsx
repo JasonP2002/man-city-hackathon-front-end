@@ -1,11 +1,28 @@
-import React from "react";
-import MenuListComposition from "./NavigationBar";
+import { Stack } from "@mui/material";
+import MenuListComposition from "./navigationBar";
+import logo from "../../assets/logo.png";
 
 const Header = () => {
   return (
-    <h1>
+    <Stack
+      direction="row"
+      mr={0.5}
+      mb={0.25}
+      padding={0}
+      alignItems="center"
+      spacing={74}
+      height="75px"
+    >
       <MenuListComposition />
-    </h1>
+      <div className="imageWrapper"></div>
+      <img
+        src={`${logo}?w=164&h=164&fit=crop&auto=format`}
+        alt=""
+        className="image"
+        width="320"
+        height="220"
+      />
+    </Stack>
   );
 };
 

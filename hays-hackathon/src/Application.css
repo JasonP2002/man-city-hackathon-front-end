@@ -1,13 +1,45 @@
-h1{
-    background-color: #6CABDD;
-
-}
-
 body{
     background-color: #6CABDD;
+    font-family: sans-serif;
 }
 
-/*Match Page*/
+h1{
+    background-color: #6CABDD;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+h2 {
+
+    text-align: center;
+    font-size:xx-large;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+h3 {
+
+    text-align: center;
+    font-size: medium;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+#dropdown, #dropdown-label{
+    color: black;
+    border-width: 5px;
+}
+
+.MuiSvgIcon-root{
+    color: black;
+}
+
+#playButton{
+    font-size: 9.5rem;
+}
+.MuiDataGrid-columnHeaders{
+   background-color:  #358ad0;
+}
+
+/*START OF MATCH PAGE*/
 .match-page {
     display: flex;
     flex-direction: column;
@@ -101,3 +133,4 @@ body{
     height: 50px;
 }
 /*FIELD*/
+/*END OF MATCH PAGE*/
