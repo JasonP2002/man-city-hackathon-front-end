@@ -1,11 +1,15 @@
 import {useDroppable} from '@dnd-kit/core';
+import { margin, width } from '@mui/system';
 
 const Available = (props) => {
   const {isOver, setNodeRef} = useDroppable({
     id: props.id,
   });
   const style = {
-    backgroundColor: isOver ? 'red' : 'darkcyan',
+    border: '5px dotted rgba(0, 0, 0, 1)',
+    borderRadius: '20px',
+    width: '420px',
+    marginTop: '-12px'
   };
 
   return (

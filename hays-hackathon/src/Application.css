@@ -23,6 +23,7 @@ h3 {
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
+
 #dropdown, #dropdown-label{
     color: black;
     border-width: 5px;
@@ -75,18 +76,20 @@ h3 {
 
 /*SCOREBOARD*/
 .score-board {
-    width: 500px;
-    height: 40px;
+    width: 320px;
+    height: 35px;
     background-color: black;
     background-color: lightgrey;
     color: white;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    margin-bottom: 35px;
+    border-radius: 10px;
 }
 .scoreboard-team {
-    width: 100px;
-    height: 60px;
+    width: 50px;
+    height: 40px;
     color: black;
     text-align: center;
     display: flex;
@@ -94,8 +97,8 @@ h3 {
     justify-content:center;
 }
 .scoreboard-score {
-    width: 100px;
-    height: 60px;
+    width: 90px;
+    height: 40px;
     background-color: black;
     display: flex;
     align-items:center;
@@ -122,6 +125,7 @@ h3 {
 
     background-image: url("../src/assets/field.jpg");
     background-size: 770px;
+    margin-top: 25px;
 }
 .field-img {
     max-width: 100%;

@@ -18,7 +18,7 @@ export default function MatchDetails() {
   const [location, setLocation] = React.useState("home");
   const [opponent, setOpponent] = useState({});
   const [formation, setFormation] = useState({});
-  const [num_players, setNumPlayers] = useState(0);
+  const [numPlayers, setNumPlayers] = useState(0);
 
   const anchorRef = React.useRef<HTMLButtonElement>(null);
   const navigate = useNavigate();
@@ -67,7 +67,7 @@ export default function MatchDetails() {
   };
   React.useEffect(() => {
     getAllData();
-  }, []);
+  });
 
   const teams = [
     { label: "Manchester United", shorthand: "MUN" },

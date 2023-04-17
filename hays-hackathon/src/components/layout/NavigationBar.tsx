@@ -5,7 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 import { IconButton, ListItemIcon, ListItemText, Menu } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
-import GroupsIcon from "@mui/icons-material/Groups";
+// import GroupsIcon from "@mui/icons-material/Groups";
 import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
 import AnalyticsIcon from "@mui/icons-material/Analytics";
 
@@ -57,12 +57,6 @@ export default function MenuListComposition() {
             <HomeIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText>Home</ListItemText>
-        </MenuItem>
-        <MenuItem onClick={handleClose("/selection")}>
-          <ListItemIcon>
-            <GroupsIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Team Selection</ListItemText>
         </MenuItem>
         <MenuItem onClick={handleClose("/match")}>
           <ListItemIcon>
