@@ -10,7 +10,7 @@ const Position = (props) => {
 
   return (
     <div className={"droppable position "+props.id} ref={setNodeRef} style={style}>
-      {props.players.filter((_, i) => props.dropZones[i] === props.id)}
+      {props.player}
     </div>
   );
 };

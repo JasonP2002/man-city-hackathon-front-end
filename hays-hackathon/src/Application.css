@@ -25,13 +25,13 @@ body{
     gap: 2em;
 }
 .droppable {
-    width: 1000px;
+    width: 700px;
     height: 120px;
     color: white;
     text-align: center;
 }
 .bench {
-    width: 600px;
+    width: 300px;
 }
 .player {
     width: 50px;
@@ -40,29 +40,64 @@ body{
     background-color: black;
     text-align: center;
 }
+
+/*SCOREBOARD*/
 .score-board {
     width: 500px;
     height: 40px;
-    background-color: darkblue;
+    background-color: black;
+    background-color: lightgrey;
+    color: white;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }
+.scoreboard-team {
+    width: 100px;
+    height: 60px;
+    color: black;
+    text-align: center;
+}
+.scoreboard-score {
+    width: 100px;
+    height: 60px;
+    background-color: black;
+    text-align: center;
+}
+/*SCOREBOARD*/
+
 .team-energy {
     width: 200px;
     height: 200px;
     background-color: darkgoldenrod;
+    color: white;
     border-radius: 50%;
     text-align: center;
 }
+
+/*FIELD*/
 .field {
-    width: 900px;
-    height: 400px;
-    background-color: darkgreen;
-    
-    display: grid;
-    grid-template-columns: repeat(3, 200px);
-    column-gap: 10px;
-    row-gap: 1em;
+    width: 770px;
+    height: 515px;
+
+    display: flex;
+    justify-content: space-evenly;
+
+    background-image: url("../src/assets/field.jpg");
+    background-size: 770px;
+}
+.field-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+.grid-item{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 .position {
     width: 50px;
     height: 50px;
 }
+/*FIELD*/

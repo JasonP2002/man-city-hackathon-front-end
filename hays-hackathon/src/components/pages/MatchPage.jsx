@@ -34,6 +34,7 @@ const generateDropZones = () => {
 const MatchPage = (props) => {
   const [players, setPlayers] = useState(generatePlayers());
   const [dropZones, setDropZones] = useState(generateDropZones());
+  const [form, setForm] = useState('4-4-2');
 
   function handleDragEnd(event) {
     const {over, active} = event;
@@ -72,24 +73,24 @@ const MatchPage = (props) => {
       <div className="match-page" >
         {/*Must wrap all drag-and-drop components in a DndContext*/}
         <DndContext onDragEnd={handleDragEnd} >
-          <ScoreBoard />
+          <ScoreBoard hometeam={"MCI"} homescore={"0"} awayteam={"ZZZ"} awayscore={"0"}/>
           
           <div className="match-page-center">
-            <Field key='field-droppable' id='field-droppable' players={players} dropZones={dropZones} />
+            <Field key='field-droppable' id='field-droppable' players={players} dropZones={dropZones} form={form}/>
 
             <div className="match-details">
-              <TeamEnergy />
+              <TeamEnergy energy="100"/>
               <Bench key='bench-droppable' id='bench-droppable' >
                 <h2>Bench</h2>
                 {players.filter((_, i) => dropZones[i] === 'bench-droppable')}
               </Bench>
+              <Available key='avail-droppable' id='avail-droppable'>
+                <h2>Players</h2>
+                {players.filter((_, i) => dropZones[i] === 'avail-droppable')}
+              </Available>
             </div>
           </div>
 
-          <Available key='avail-droppable' id='avail-droppable'>
-            <h2>Players</h2>
-            {players.filter((_, i) => dropZones[i] === 'avail-droppable')}
-          </Available>
         </DndContext>
       </div>
     </Layout>
