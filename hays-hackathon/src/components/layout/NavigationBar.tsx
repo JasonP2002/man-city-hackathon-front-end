@@ -3,7 +3,11 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
-import { IconButton, Menu } from "@mui/material";
+import { IconButton, ListItemIcon, ListItemText, Menu } from "@mui/material";
+import HomeIcon from "@mui/icons-material/Home";
+import GroupsIcon from "@mui/icons-material/Groups";
+import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
+import AnalyticsIcon from "@mui/icons-material/Analytics";
 
 export default function MenuListComposition() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -47,10 +51,31 @@ export default function MenuListComposition() {
           horizontal: "left",
         }}
       >
-        <MenuItem onClick={handleClose("/")}>Home</MenuItem>
-        <MenuItem onClick={handleClose("/selection")}>Selection</MenuItem>
-        <MenuItem onClick={handleClose("/match")}>Match</MenuItem>
-        <MenuItem onClick={handleClose("/archive")}>Archive</MenuItem>
+        <MenuItem onClick={handleClose("/")}>
+          {" "}
+          <ListItemIcon>
+            <HomeIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText>Home</ListItemText>
+        </MenuItem>
+        <MenuItem onClick={handleClose("/selection")}>
+          <ListItemIcon>
+            <GroupsIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText>Team Selection</ListItemText>
+        </MenuItem>
+        <MenuItem onClick={handleClose("/match")}>
+          <ListItemIcon>
+            <SportsSoccerIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText>Live Match</ListItemText>
+        </MenuItem>
+        <MenuItem onClick={handleClose("/archive")}>
+          <ListItemIcon>
+            <AnalyticsIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText>Player Data</ListItemText>
+        </MenuItem>
       </Menu>
     </div>
   );

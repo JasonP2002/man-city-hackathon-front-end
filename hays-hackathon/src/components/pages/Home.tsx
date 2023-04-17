@@ -1,13 +1,12 @@
-import React from "react";
-import Layout from "../layout/layout";
+import MatchDetails from "../layout/matchDetails";
 
 export interface IHomePageProps {}
 
-const HomePage: React.FunctionComponent<IHomePageProps> = (props) => {
+const HomePage = () => {
   return (
-    <Layout>
-      <div>home</div>
-    </Layout>
+    <div>
+      <MatchDetails />
+    </div>
   );
 };
 export default HomePage;
