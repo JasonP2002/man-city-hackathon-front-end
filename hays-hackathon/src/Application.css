@@ -73,6 +73,12 @@ h3 {
     background-color: black;
     text-align: center;
 }
+.card {
+    width: 100px;
+    height: 100px;
+    background-color: darkblue;
+    color: white;
+}
 
 /*SCOREBOARD*/
 .score-board {

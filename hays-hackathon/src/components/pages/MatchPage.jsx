@@ -12,19 +12,17 @@ import { DndContext } from '@dnd-kit/core';
 import Player from '../matchpage/Player';
 import { useLocation } from 'react-router-dom';
 
-let num_players = 0
-
-const generatePlayers = () => {
+const generatePlayers = (num_players) => {
   let players = []
   let id=''
   for (let i = 0; i < num_players; i++) {
     id = 'player-draggable:'+i.toString()
-    players.push(<Player key={id} id={id}>Player {i+1}</Player>)
+    players.push(<Player key={id} id={id} forename={"Mr."} surname={"Test " + i.toString()} mins={40} energy={99}>Player {i+1}</Player>)
   }
   return players;
 };
 
-const generateDropZones = () => {
+const generateDropZones = (num_players) => {
   let dropZones = []
   for (let i = 0; i < num_players; i++) {
     dropZones.push('avail-droppable')
@@ -33,13 +31,14 @@ const generateDropZones = () => {
 }
 
 const MatchPage = (props) => {
-  const [players, setPlayers] = useState(generatePlayers());
-  const [dropZones, setDropZones] = useState(generateDropZones());
+  const [numberOfPlayers, setNumberOfPlayers] = useState(11);
+  const [players, setPlayers] = useState(generatePlayers(numberOfPlayers));
+  const [dropZones, setDropZones] = useState(generateDropZones(numberOfPlayers));
+
   const statee = useLocation().state
   const [form, setForm] = useState(statee.form.value.label);
   const [opp, setOpp] = useState(statee.opposition.value.shorthand);
-  const [numberOfPlayers, setNumberOfPlayers] = useState(statee.num_players);
-  num_players = numberOfPlayers
+
 
   function handleDragEnd(event) {
     const {over, active} = event;

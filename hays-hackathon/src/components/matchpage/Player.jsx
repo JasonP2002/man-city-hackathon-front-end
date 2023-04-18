@@ -1,5 +1,10 @@
 import {useDraggable} from '@dnd-kit/core';
+import PlayerCard from './PlayerCard';
 
+const displayPlayerCard = (props) => {
+  //Working on this
+  // return <PlayerCard forename={props.forename} surname={props.surname} mins={props.mins} energy={props.energy} />
+}
 const Player = (props) => {
   const {attributes, listeners, setNodeRef, transform} = useDraggable({
     id: props.id,
@@ -9,7 +14,7 @@ const Player = (props) => {
   } : undefined;
 
   return (
-      <button className="player" ref={setNodeRef} style={style} {...listeners} {...attributes}>
+      <button className="player" ref={setNodeRef} style={style} {...listeners} {...attributes} onMouseOver={displayPlayerCard(props)}>
         {props.children}
       </button>
   );
