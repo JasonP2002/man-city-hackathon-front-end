@@ -6,6 +6,7 @@ import TeamEnergy from '../matchpage/TeamEnergy';
 import Field from '../matchpage/Field';
 import Bench from '../matchpage/Bench';
 import Available from '../matchpage/Available';
+import Timer from '../layout/timer';
 
 import { DndContext } from '@dnd-kit/core';
 
@@ -76,6 +77,7 @@ const MatchPage = (props) => {
   return (
     <Layout>
       <div className="match-page" >
+        <Timer/>
         {/*Must wrap all drag-and-drop components in a DndContext*/}
         <DndContext onDragEnd={handleDragEnd} >
           <ScoreBoard hometeam={"MCI"} homescore={"0"} awayteam={opp} awayscore={"0"}/>
