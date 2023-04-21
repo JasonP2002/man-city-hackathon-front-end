@@ -98,12 +98,6 @@ export default function MatchDetails() {
   React.useEffect(() => {
     getAllFormations();
   });
-  console.log(formation);
-  const formationss = [
-    { label: "4-3-3", formationType: "defensive" },
-    { label: "3-5-2", formationType: "offensive" },
-    { label: "4-4-2", formationType: "defensive" },
-  ];
 
   return (
     <Layout>
