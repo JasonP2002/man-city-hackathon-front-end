@@ -36,9 +36,11 @@ const generateDropZones = () => {
 const MatchPage = (props) => {
   const [players, setPlayers] = useState(generatePlayers());
   const [dropZones, setDropZones] = useState(generateDropZones());
-  const statee = useLocation().state
-  const [form, setForm] = useState(statee.form.value.label);
-  const [opp, setOpp] = useState(statee.opposition.value.shorthand);
+  const [statee, setStatee] = useState(useLocation().state)
+ 
+  const [form, setForm] = useState(statee.form.value);
+  var index = statee.teams.findIndex(item => item.name === statee.opposition.value )
+  const [opp, setOpp] = useState(statee.teams[index].abrv);
   const [numberOfPlayers, setNumberOfPlayers] = useState(statee.num_players);
   num_players = numberOfPlayers
 
