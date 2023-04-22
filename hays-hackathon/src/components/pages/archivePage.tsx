@@ -83,6 +83,7 @@ const ArchivePage: React.FunctionComponent<IArchivePageProps> = (props) => {
   }, []);
   const processRowUpdate = (newRow: any) => {
     const updatedRow = { ...newRow, isNew: false };
+    console.log(updatedRow);
     axios
       .patch(`http://localhost:8888/player/${updatedRow.id}`, {
         observations: updatedRow.observations,
