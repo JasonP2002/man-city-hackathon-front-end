@@ -6,6 +6,7 @@ import TeamEnergy from '../matchpage/TeamEnergy';
 import Field from '../matchpage/Field';
 import Bench from '../matchpage/Bench';
 import Available from '../matchpage/Available';
+import Timer from '../layout/timer';
 
 import { DndContext } from '@dnd-kit/core';
 
@@ -35,9 +36,11 @@ const generateDropZones = () => {
 const MatchPage = (props) => {
   const [players, setPlayers] = useState(generatePlayers());
   const [dropZones, setDropZones] = useState(generateDropZones());
-  const statee = useLocation().state
-  const [form, setForm] = useState(statee.form.value.label);
-  const [opp, setOpp] = useState(statee.opposition.value.shorthand);
+  const [statee, setStatee] = useState(useLocation().state)
+ 
+  const [form, setForm] = useState(statee.form.value);
+  var index = statee.teams.findIndex(item => item.name === statee.opposition.value )
+  const [opp, setOpp] = useState(statee.teams[index].abrv);
   const [numberOfPlayers, setNumberOfPlayers] = useState(statee.num_players);
   num_players = numberOfPlayers
 
@@ -76,6 +79,7 @@ const MatchPage = (props) => {
   return (
     <Layout>
       <div className="match-page" >
+        <Timer/>
         {/*Must wrap all drag-and-drop components in a DndContext*/}
         <DndContext onDragEnd={handleDragEnd} >
           <ScoreBoard hometeam={"MCI"} homescore={"0"} awayteam={opp} awayscore={"0"}/>

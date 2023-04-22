@@ -143,3 +143,40 @@ h3 {
 }
 /*FIELD*/
 /*END OF MATCH PAGE*/
+
+/*TIMER */
+
+.stopwatch-container {
+    height: 5vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.timer-display {
+    display: flex;
+    color: #ccc;
+}
+
+.timer-display p {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight:500;
+    letter-spacing: 1px; 
+    font-family: monospace;
+}
+
+.timer-display span {
+    font-size: 1.75rem;
+    position: relative;
+    top: 0px;
+    letter-spacing: 1px;
+}
+
+
+.stopwatch-controls-container button {
+    margin: 1px;
+    padding: 1px 2px;
+    font-size: 1.3rem;
+}
