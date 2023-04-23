@@ -88,7 +88,7 @@ const MatchPage = (props) => {
             <Field key='field-droppable' id='field-droppable' players={players} dropZones={dropZones} form={form}/>
 
             <div className="match-details">
-              <TeamEnergy energy="100"/>
+              <TeamEnergy energy={10}/>
               <Bench key='bench-droppable' id='bench-droppable' >
                 <h2>Bench</h2>
                 {players.filter((_, i) => dropZones[i] === 'bench-droppable')}

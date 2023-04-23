@@ -8,7 +8,6 @@ import {
   GridToolbarExport,
 } from "@mui/x-data-grid";
 import { useState } from "react";
-import { Box } from "@mui/system";
 
 export interface IArchivePageProps {}
 
@@ -32,6 +31,14 @@ const ArchivePage: React.FunctionComponent<IArchivePageProps> = (props) => {
       width: 300,
       minWidth: 150,
       flex: 0.3,
+    },
+    {
+      field: "position",
+      headerName: "Position",
+      width: 300,
+      minWidth: 150,
+      flex: 0.3,
+      editable: true,
     },
     {
       field: "weigth",
@@ -81,12 +88,15 @@ const ArchivePage: React.FunctionComponent<IArchivePageProps> = (props) => {
   React.useEffect(() => {
     getAllData();
   }, []);
+  console.log(data);
   const processRowUpdate = (newRow: any) => {
     const updatedRow = { ...newRow, isNew: false };
+    console.log(updatedRow);
     axios
       .patch(`http://localhost:8888/player/${updatedRow.id}`, {
         observations: updatedRow.observations,
         available: updatedRow.available,
+        position: updatedRow.position,
       })
       .then((response) => {
         console.log(updatedRow);

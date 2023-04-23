@@ -19,6 +19,7 @@ export default function MatchDetails() {
   const [opponent, setOpponent] = useState({});
   const [formation, setFormation] = useState({ value: "4-3-3" });
   const [players, setPlayers] = useState("");
+  const [availablePlayers, setAvailablePlayers] = useState();
   const [teams, setTeams] = useState<any[]>([]);
   const [formations, setFormations] = useState<any[]>([]);
 
@@ -50,7 +51,7 @@ export default function MatchDetails() {
             opposition: opponent,
             form: formation,
             location: location,
-            num_players: players.length,
+            num_players: availablePlayers,
             teams: teams,
           },
         });
@@ -62,6 +63,10 @@ export default function MatchDetails() {
       .then((response) => {
         setPlayers(response.data);
         setNumPlayers(players.length);
+        const available = response.data.filter(
+          (av: { available: boolean }) => av.available === true
+        );
+        setAvailablePlayers(available.length);
       })
       .catch((error) => {
         console.log(error);
