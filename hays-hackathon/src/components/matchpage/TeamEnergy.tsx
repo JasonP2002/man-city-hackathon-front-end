@@ -12,6 +12,7 @@ const EnergyProgress = React.memo((props: any) => {
       .get("http://127.0.0.1:5000/players/MCI")
       .then((response) => {
         const players = response.data.players;
+        console.log(players);
         const ssiIds: string[] = [];
         for (const player of players) {
           const ssiId = player.ssiId;
@@ -35,7 +36,7 @@ const EnergyProgress = React.memo((props: any) => {
   const fetchEnergyData = async (ssiId: string): Promise<EnergyData> => {
     try {
       const response = await axios.get(
-        `http://127.0.0.1:5000/energy?ssiId=${ssiId}`,
+        `http://127.0.0.1:5000/energy/predict/energy-level?ssiId=${ssiId}&date=2022-12-04&minutes=0`,
         {
           params: {
             date: "2022-12-04",
