@@ -6,17 +6,18 @@ const PlayerCard = (props) => {
     const [surname, setSurname] = useState(props.surname);
     const [mins, setMins] = useState(props.mins);
     const [energy, setEnergy] = useState(props.energy);
+    const [subOne, setSubOne] = useState('Sub_One');
+    const [subTwo, setSubTwo] = useState('Sub_Two');
 
     return (
         <div className={forename + " " + surname + " card"}>
             <CircularProgress size="lg" color="primary" determinate value={props.energy}>
                 {`${Math.round(props.energy)}%`}
             </CircularProgress>
-            <h4>{forename} {surname}</h4>
+            <h3>{forename} {surname}</h3>
             <h5>Minutes Played: {mins}</h5>
             <h5>Suggested Substitutions:</h5>
-            <h6>One</h6>
-            <h6>Two</h6>
+            <h6>{subOne} - {subTwo}</h6>
         </div>
     )
 };
