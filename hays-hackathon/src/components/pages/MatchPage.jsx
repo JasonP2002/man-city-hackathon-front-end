@@ -17,7 +17,7 @@ const generatePlayers = (num_players) => {
   let id=''
   for (let i = 0; i < num_players; i++) {
     id = 'player-draggable:'+i.toString()
-    players.push(<Player key={id} id={id} forename={"Mr."} surname={"Test " + i.toString()} mins={40} energy={99}>Player {i+1}</Player>)
+    players.push(<Player key={id} id={id} forename={"Player"} surname={(i+1).toString()} mins={0} energy={100}>Player {i+1}</Player>)
   }
   return players;
 };

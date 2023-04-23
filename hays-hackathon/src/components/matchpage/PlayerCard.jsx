@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import CircularProgress from "@mui/joy/CircularProgress";
 
 const PlayerCard = (props) => {
     const [forename, setForename] = useState(props.forename);
@@ -8,12 +9,14 @@ const PlayerCard = (props) => {
 
     return (
         <div className={forename + " " + surname + " card"}>
-            <h3 className="card-energy">{energy}</h3>
-            <h2>{forename} {surname}</h2>
-            <h3>Minutes Played: {mins}</h3>
-            <h4>Suggested Substitutions:</h4>
-            <h5>One</h5>
-            <h5>Two</h5>
+            <CircularProgress size="lg" color="primary" determinate value={props.energy}>
+                {`${Math.round(props.energy)}%`}
+            </CircularProgress>
+            <h4>{forename} {surname}</h4>
+            <h5>Minutes Played: {mins}</h5>
+            <h5>Suggested Substitutions:</h5>
+            <h6>One</h6>
+            <h6>Two</h6>
         </div>
     )
 };
