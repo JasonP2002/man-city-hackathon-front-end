@@ -1,9 +1,92 @@
 import * as React from "react";
 import CircularProgress from "@mui/joy/CircularProgress";
 import { Box } from "@mui/system";
+import axios from "axios";
 
-export default function EnergyProgress() {
-  const [progress, setProgress] = React.useState(10);
+const EnergyProgress = React.memo((props: any) => {
+  const [progress, setProgress] = React.useState(0);
+  const [arrayOfId, setId] = React.useState([""]);
+  const [dataa, setDataa] = React.useState("");
+  const getAllDataa = () => {
+    axios
+      .get("http://127.0.0.1:5000/players/MCI")
+      .then((response) => {
+        const players = response.data.players;
+        const ssiIds: string[] = [];
+        for (const player of players) {
+          const ssiId = player.ssiId;
+          ssiIds.push(ssiId);
+        }
+
+        setDataa(response.data.players);
+        setId(ssiIds);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  React.useEffect(() => {
+    getAllDataa();
+  }, []);
+
+  type EnergyData = number;
+
+  const fetchEnergyData = async (ssiId: string): Promise<EnergyData> => {
+    try {
+      const response = await axios.get(
+        `http://127.0.0.1:5000/energy?ssiId=${ssiId}`,
+        {
+          params: {
+            date: "2022-12-04",
+          },
+        }
+      );
+      return response.data as EnergyData;
+    } catch (error) {
+      console.log(`Failed to fetch energy data for ssiId: ${ssiId}`, error);
+      throw error;
+    }
+  };
+
+  const fetchEnergyDataForAllIds = async (): Promise<EnergyData[]> => {
+    try {
+      const energyDataArray: EnergyData[] = await Promise.all(
+        arrayOfId.map(async (ssiId) => fetchEnergyData(ssiId))
+      );
+      return energyDataArray;
+    } catch (error) {
+      console.log("Failed to fetch energy data for all ssiIds", error);
+      throw error;
+    }
+  };
+
+  const fetchData = async () => {
+    try {
+      const energyDataArray = await fetchEnergyDataForAllIds();
+      const sum = energyDataArray.reduce((acc, val) => acc + val, 0);
+      console.log("Sum:", sum);
+      return sum;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getFinalSum = async () => {
+    try {
+      const sum = await fetchData();
+      console.log("Final Sum:", sum);
+      if (typeof sum === "number") {
+        setProgress(sum);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  React.useEffect(() => {
+    getFinalSum();
+  }, [arrayOfId]);
 
   React.useEffect(() => {
     setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress));
@@ -31,4 +114,5 @@ export default function EnergyProgress() {
       </CircularProgress>
     </Box>
   );
-}
+});
+export default EnergyProgress;
