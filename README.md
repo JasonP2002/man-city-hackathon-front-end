@@ -7,3 +7,4 @@ In the hays_hackathon directory, with the API running, run the command:
 ```
 npm start
 ```
+The front-end will run on http://localhost:3000.
