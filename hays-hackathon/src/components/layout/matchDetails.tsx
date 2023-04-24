@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Layout from "../layout/layout";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -173,7 +173,6 @@ export default function MatchDetails() {
             disablePortal
             id="dropdown"
             options={formations.map((option) => option.name)}
-            // options={formationss}
             isOptionEqualToValue={(options, value) =>
               options.label === value.label
             }
