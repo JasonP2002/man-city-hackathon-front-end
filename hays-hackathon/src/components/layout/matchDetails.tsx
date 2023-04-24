@@ -80,7 +80,10 @@ export default function MatchDetails() {
     axios
       .get("http://localhost:8888/team")
       .then((response) => {
-        setTeams(response.data);
+        const filteredTeams = response.data.filter(
+          (t: { name: string }) => t.name !== "Manchester City WFC"
+        );
+        setTeams(filteredTeams);
       })
       .catch((error) => {
         console.log(error);
@@ -170,7 +173,6 @@ export default function MatchDetails() {
             disablePortal
             id="dropdown"
             options={formations.map((option) => option.name)}
-            // options={formationss}
             isOptionEqualToValue={(options, value) =>
               options.label === value.label
             }

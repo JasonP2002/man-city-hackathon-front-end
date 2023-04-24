@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Layout from "../layout/layout";
 
 import ScoreBoard from '../matchpage/ScoreBoard';
@@ -13,17 +13,19 @@ import { DndContext } from '@dnd-kit/core';
 import Player from '../matchpage/Player';
 import { useLocation } from 'react-router-dom';
 
-const generatePlayers = (num_players) => {
+let num_players = 0
+
+const generatePlayers = () => {
   let players = []
   let id=''
   for (let i = 0; i < num_players; i++) {
     id = 'player-draggable:'+i.toString()
-    players.push(<Player key={id} id={id} forename={"Player"} surname={(i+1).toString()} mins={0} energy={100}>Player {i+1}</Player>)
+    players.push(<Player key={id} id={id}>Player {i+1}</Player>)
   }
   return players;
 };
 
-const generateDropZones = (num_players) => {
+const generateDropZones = () => {
   let dropZones = []
   for (let i = 0; i < num_players; i++) {
     dropZones.push('avail-droppable')
@@ -32,16 +34,20 @@ const generateDropZones = (num_players) => {
 }
 
 const MatchPage = (props) => {
-  const [numberOfPlayers, setNumberOfPlayers] = useState(11);
-  const [players, setPlayers] = useState(generatePlayers(numberOfPlayers));
-  const [dropZones, setDropZones] = useState(generateDropZones(numberOfPlayers));
-
+  const [players, setPlayers] = useState(generatePlayers());
+  const [dropZones, setDropZones] = useState(generateDropZones());
   const [statee, setStatee] = useState(useLocation().state)
  
   const [form, setForm] = useState(statee.form.value);
   var index = statee.teams.findIndex(item => item.name === statee.opposition.value )
   const [opp, setOpp] = useState(statee.teams[index].abrv);
-
+  const [numberOfPlayers, setNumberOfPlayers] = useState(statee.num_players);
+  const [homescore, setHomeScore] = useState(0);
+  const [awayscore, setAwayScore] = useState(0);
+  const [maxScore, setMaxScore] = useState(10);
+  const [awayScoreDelay, setAwayScoreDelay] = useState(32000); // Initial delay for away score increment
+const [counter, setCounter] = useState(0);
+  num_players = numberOfPlayers
 
   function handleDragEnd(event) {
     const {over, active} = event;
@@ -75,13 +81,55 @@ const MatchPage = (props) => {
     return -1;
   }
 
+
+const incrementHomeScore = useCallback(() => {
+  setHomeScore(prevScore => {
+    if (prevScore < maxScore) {
+      return prevScore + 1;
+    }
+    return prevScore;
+  });
+}, [maxScore]);
+
+const incrementAwayScore = useCallback(() => {
+  setAwayScore(prevScore => {
+    if (prevScore < maxScore) {
+      return prevScore + 1;
+    }
+    return prevScore;
+  });
+}, [maxScore]);
+
+useEffect(() => {
+  const homeScoreIntervalId = setInterval(incrementHomeScore, 60000);
+
+  const awayScoreIntervalId = setInterval(() => {
+    setCounter(prevCounter => prevCounter + 1);
+
+    setAwayScoreDelay(prevDelay => {
+      if (counter % 5 === 0) {
+        return prevDelay * 2; // Double the delay
+      }
+      return prevDelay;
+    });
+
+    incrementAwayScore(); // Call the away score increment
+
+  }, awayScoreDelay);
+
+  return () => {
+    clearInterval(homeScoreIntervalId);
+    clearInterval(awayScoreIntervalId);
+  };
+}, [incrementHomeScore, incrementAwayScore, awayScoreDelay, counter]);
+
   return (
     <Layout>
       <div className="match-page" >
         <Timer/>
         {/*Must wrap all drag-and-drop components in a DndContext*/}
         <DndContext onDragEnd={handleDragEnd} >
-          <ScoreBoard hometeam={"MCI"} homescore={"0"} awayteam={opp} awayscore={"0"}/>
+          <ScoreBoard hometeam={"MCI"} homescore={homescore} awayteam={opp} awayscore={awayscore}/>
           
           <div className="match-page-center">
             <Field key='field-droppable' id='field-droppable' players={players} dropZones={dropZones} form={form}/>

@@ -12,6 +12,14 @@ import { useState } from "react";
 export interface IArchivePageProps {}
 
 const ArchivePage: React.FunctionComponent<IArchivePageProps> = (props) => {
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth() + 1; // Months are 0-indexed, so add 1 to get the correct month
+  const day = currentDate.getDate();
+
+  // Format the date in DD/MM/YYYY format
+  const formattedDate = `${day}/${month}/${year}`;
+
   function CustomToolbar() {
     return (
       <GridToolbarContainer
@@ -19,7 +27,11 @@ const ArchivePage: React.FunctionComponent<IArchivePageProps> = (props) => {
           width: 100,
         }}
       >
-        <GridToolbarExport />
+        <GridToolbarExport
+          csvOptions={{
+            fileName: `${formattedDate}PlayerData`,
+          }}
+        />
       </GridToolbarContainer>
     );
   }
@@ -27,36 +39,40 @@ const ArchivePage: React.FunctionComponent<IArchivePageProps> = (props) => {
     { field: "id", headerName: "ID", width: 70, flex: 0.3 },
     {
       field: "name",
-      headerName: "Name",
-      width: 300,
-      minWidth: 150,
-      flex: 0.3,
+      headerName: "NAME",
+      minWidth: 200,
+      maxWidth: 400,
+      flex: 0.4,
     },
     {
       field: "position",
-      headerName: "Position",
-      width: 300,
+      headerName: "POSITION",
+      width: 250,
       minWidth: 150,
       flex: 0.3,
       editable: true,
     },
     {
       field: "weigth",
-      headerName: "Weight",
+      headerName: "WEIGHT",
       width: 150,
       type: "number",
       flex: 0.3,
+      align: "left",
+      headerAlign: "left",
     },
     {
       field: "height",
-      headerName: "Height",
+      headerName: "HEIGHT",
       width: 150,
       type: "number",
       flex: 0.3,
+      headerAlign: "left",
+      align: "left",
     },
     {
       field: "observations",
-      headerName: "Observations",
+      headerName: "OBSERVATIONS",
       width: 250,
       editable: true,
       sortable: false,
@@ -64,7 +80,7 @@ const ArchivePage: React.FunctionComponent<IArchivePageProps> = (props) => {
     },
     {
       field: "available",
-      headerName: "Available",
+      headerName: "AVAILABLE",
       width: 150,
       editable: true,
       sortable: false,

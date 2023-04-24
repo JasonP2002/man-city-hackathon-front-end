@@ -78,20 +78,36 @@ const EnergyProgress = React.memo((props: any) => {
       const sum = await fetchData();
       console.log("Final Sum:", sum);
       if (typeof sum === "number") {
-        setProgress(sum);
+        const percentage = (sum / (arrayOfId.length * 100)) * 100;
+        setProgress(percentage);
       }
     } catch (error) {
       console.log(error);
     }
   };
-
   React.useEffect(() => {
-    getFinalSum();
-  }, [arrayOfId]);
+    let timer: NodeJS.Timeout;
+    const startTimer = () => {
+      timer = setInterval(() => {
+        setProgress((prevProgress) => {
+          const newProgress = prevProgress >= 100 ? 100 : prevProgress + 1;
+          return newProgress;
+        });
+      }, 15000);
+    };
 
-  React.useEffect(() => {
-    setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress));
-  }, []);
+    if (arrayOfId.length > 0 && progress === 0) {
+      getFinalSum();
+    }
+    if (progress > 0.0) {
+      setTimeout(() => {
+        startTimer();
+      }, 15000);
+    }
+    return () => {
+      clearInterval(timer);
+    };
+  }, [arrayOfId, progress]);
   return (
     <Box
       sx={{
