@@ -6,9 +6,8 @@ const Available = (props) => {
     id: props.id,
   });
   const style = {
-    border: '5px dotted rgba(0, 0, 0, 1)',
     borderRadius: '20px',
-    width: '420px',
+    width: '500px',
     marginTop: '-12px'
   };
 

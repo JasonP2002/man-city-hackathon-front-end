@@ -17,9 +17,13 @@ import axios from "axios";
 export default function MatchDetails() {
   const [location, setLocation] = React.useState("home");
   const [opponent, setOpponent] = useState({});
-  const [formation, setFormation] = useState({});
-  const [numPlayers, setNumPlayers] = useState(0);
+  const [formation, setFormation] = useState({ value: "4-3-3" });
+  const [players, setPlayers] = useState("");
+  const [availablePlayers, setAvailablePlayers] = useState();
+  const [teams, setTeams] = useState<any[]>([]);
+  const [formations, setFormations] = useState<any[]>([]);
 
+  const [numPlayers, setNumPlayers] = useState(0);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
   const navigate = useNavigate();
 
@@ -47,38 +51,58 @@ export default function MatchDetails() {
             opposition: opponent,
             form: formation,
             location: location,
-            num_players: data.length,
+            num_players: availablePlayers,
+            teams: teams,
           },
         });
       }
     };
-
-  const [data, setData] = useState("");
-  const getAllData = () => {
+  const getAllPlayers = () => {
     axios
       .get("http://localhost:8888/player")
       .then((response) => {
-        setData(response.data);
-        setNumPlayers(data.length);
+        setPlayers(response.data);
+        setNumPlayers(players.length);
+        const available = response.data.filter(
+          (av: { available: boolean }) => av.available === true
+        );
+        setAvailablePlayers(available.length);
       })
       .catch((error) => {
         console.log(error);
       });
   };
   React.useEffect(() => {
-    getAllData();
+    getAllPlayers();
   });
 
-  const teams = [
-    { label: "Manchester United", shorthand: "MUN" },
-    { label: "West Ham", shorthand: "WHU" },
-    { label: "Liverpool", shorthand: "LIV" },
-  ];
-  const formations = [
-    { label: "4-3-3", formationType: "defensive" },
-    { label: "3-5-2", formationType: "offensive" },
-    { label: "4-4-2", formationType: "defensive" },
-  ];
+  const getAllTeams = () => {
+    axios
+      .get("http://localhost:8888/team")
+      .then((response) => {
+        setTeams(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  React.useEffect(() => {
+    getAllTeams();
+  });
+
+  const getAllFormations = () => {
+    axios
+      .get("http://localhost:8888/formation")
+      .then((response) => {
+        setFormations(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  React.useEffect(() => {
+    getAllFormations();
+  });
 
   return (
     <Layout>
@@ -99,9 +123,9 @@ export default function MatchDetails() {
           <Autocomplete
             disablePortal
             id="dropdown"
-            options={teams}
+            options={teams.map((option) => option.name)}
             isOptionEqualToValue={(options, value) =>
-              options.label === value.label
+              options.name === value.label
             }
             sx={{
               padding: 1,
@@ -145,7 +169,8 @@ export default function MatchDetails() {
           <Autocomplete
             disablePortal
             id="dropdown"
-            options={formations}
+            options={formations.map((option) => option.name)}
+            // options={formationss}
             isOptionEqualToValue={(options, value) =>
               options.label === value.label
             }

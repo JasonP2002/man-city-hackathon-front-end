@@ -6,6 +6,7 @@ import TeamEnergy from '../matchpage/TeamEnergy';
 import Field from '../matchpage/Field';
 import Bench from '../matchpage/Bench';
 import Available from '../matchpage/Available';
+import Timer from '../layout/timer';
 
 import { DndContext } from '@dnd-kit/core';
 
@@ -35,9 +36,11 @@ const MatchPage = (props) => {
   const [players, setPlayers] = useState(generatePlayers(numberOfPlayers));
   const [dropZones, setDropZones] = useState(generateDropZones(numberOfPlayers));
 
-  const statee = useLocation().state
-  const [form, setForm] = useState(statee.form.value.label);
-  const [opp, setOpp] = useState(statee.opposition.value.shorthand);
+  const [statee, setStatee] = useState(useLocation().state)
+ 
+  const [form, setForm] = useState(statee.form.value);
+  var index = statee.teams.findIndex(item => item.name === statee.opposition.value )
+  const [opp, setOpp] = useState(statee.teams[index].abrv);
 
 
   function handleDragEnd(event) {
@@ -75,6 +78,7 @@ const MatchPage = (props) => {
   return (
     <Layout>
       <div className="match-page" >
+        <Timer/>
         {/*Must wrap all drag-and-drop components in a DndContext*/}
         <DndContext onDragEnd={handleDragEnd} >
           <ScoreBoard hometeam={"MCI"} homescore={"0"} awayteam={opp} awayscore={"0"}/>
@@ -83,7 +87,7 @@ const MatchPage = (props) => {
             <Field key='field-droppable' id='field-droppable' players={players} dropZones={dropZones} form={form}/>
 
             <div className="match-details">
-              <TeamEnergy energy="100"/>
+              <TeamEnergy energy={10}/>
               <Bench key='bench-droppable' id='bench-droppable' >
                 <h2>Bench</h2>
                 {players.filter((_, i) => dropZones[i] === 'bench-droppable')}

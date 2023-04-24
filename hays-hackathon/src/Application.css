@@ -109,9 +109,11 @@ h3 {
     background-color: lightgrey;
     color: white;
     display: flex;
+    margin-left: 75px;
+    align-self: flex-start;
     justify-content: space-evenly;
     align-items: center;
-    margin-bottom: 35px;
+    margin-top: 35px;
     border-radius: 10px;
 }
 .scoreboard-team {
@@ -170,3 +172,43 @@ h3 {
 }
 /*FIELD*/
 /*END OF MATCH PAGE*/
+
+/*TIMER */
+
+.stopwatch-container {
+    height: 5vh;
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    justify-content: center;
+    align-items: center;
+}
+
+.timer-display {
+    display: flex;
+    margin-top: 60px;
+    margin-right: 980px;
+    color: #ccc;
+}
+
+.timer-display p {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight:500;
+    letter-spacing: 1px; 
+    font-family: monospace;
+}
+
+.timer-display span {
+    font-size: 1.75rem;
+    position: relative;
+    top: 0px;
+    letter-spacing: 1px;
+}
+
+
+.stopwatch-controls-container button {
+    margin: 1px;
+    padding: 1px 2px;
+    font-size: 1.3rem;
+}

@@ -58,12 +58,6 @@ export default function MenuListComposition() {
           </ListItemIcon>
           <ListItemText>Home</ListItemText>
         </MenuItem>
-        <MenuItem onClick={handleClose("/match")}>
-          <ListItemIcon>
-            <SportsSoccerIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Live Match</ListItemText>
-        </MenuItem>
         <MenuItem onClick={handleClose("/archive")}>
           <ListItemIcon>
             <AnalyticsIcon fontSize="small" />

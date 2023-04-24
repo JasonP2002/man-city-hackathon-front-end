@@ -6,6 +6,7 @@ export interface GetPlayerResponse {
   observations: string;
   createdAt: Date;
   updatedAt: Date;
+  available: boolean;
   playerStats: {
     walking: number;
     jogging: number;
