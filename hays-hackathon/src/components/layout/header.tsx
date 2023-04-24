@@ -8,20 +8,13 @@ const Header = () => {
       direction="row"
       mr={0.5}
       mb={0.25}
+      mt={0}
       padding={0}
       alignItems="center"
       spacing={74}
       height="75px"
     >
       <MenuListComposition />
-      <div className="imageWrapper"></div>
-      <img
-        src={`${logo}?w=164&h=164&fit=crop&auto=format`}
-        alt=""
-        className="image"
-        width="320"
-        height="220"
-      />
     </Stack>
   );
 };

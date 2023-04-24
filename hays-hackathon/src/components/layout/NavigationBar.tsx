@@ -1,21 +1,36 @@
 import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
 import MenuIcon from "@mui/icons-material/Menu";
-import ClickAwayListener from "@mui/material/ClickAwayListener";
-import MenuItem from "@mui/material/MenuItem";
-import { useNavigate } from "react-router-dom";
-import { IconButton, ListItemIcon, ListItemText, Menu } from "@mui/material";
-import HomeIcon from "@mui/icons-material/Home";
-// import GroupsIcon from "@mui/icons-material/Groups";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import AnalyticsIcon from "@mui/icons-material/Analytics";
 
-export default function MenuListComposition() {
+import MenuItem from "@mui/material/MenuItem";
+import {
+  Avatar,
+  ClickAwayListener,
+  IconButton,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+} from "@mui/material";
+import HomeIcon from "@mui/icons-material/Home";
+import { useNavigate } from "react-router-dom";
+// import GroupsIcon from "@mui/icons-material/Groups";
+import AnalyticsIcon from "@mui/icons-material/Analytics";
+import logo from "../../assets/logo.png";
+
+export default function MenuAppBar() {
+  const [auth, setAuth] = React.useState(true);
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAuth(event.target.checked);
+  };
+
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const navigate = useNavigate();
 
   const handleClose =
     (page: string) => (event: Event | React.SyntheticEvent) => {
@@ -24,47 +39,74 @@ export default function MenuListComposition() {
     };
 
   return (
-    <div>
-      <ClickAwayListener onClickAway={handleClose("")}>
-        <IconButton
-          id="demo-positioned-button"
-          aria-controls={open ? "demo-positioned-menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
-          onClick={handleClick}
-        >
-          <MenuIcon style={{ color: "#000000", fontSize: "40px" }} />
-        </IconButton>
-      </ClickAwayListener>
-      <Menu
-        id="demo-positioned-menu"
-        aria-labelledby="demo-positioned-button"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "left",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
-        }}
-      >
-        <MenuItem onClick={handleClose("/")}>
-          {" "}
-          <ListItemIcon>
-            <HomeIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Home</ListItemText>
-        </MenuItem>
-        <MenuItem onClick={handleClose("/archive")}>
-          <ListItemIcon>
-            <AnalyticsIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Player Data</ListItemText>
-        </MenuItem>
-      </Menu>
-    </div>
+    <Box
+      sx={{
+        position: "absolute",
+        top: 0,
+        right: 0,
+        left: 0,
+        overflowX: "hidden",
+      }}
+    >
+      <AppBar position="static">
+        <Toolbar>
+          <ClickAwayListener onClickAway={handleClose("")}>
+            <IconButton
+              size="large"
+              edge="start"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenu}
+              color="inherit"
+              sx={{ mr: 156, flexGrow: 1 }}
+            >
+              <MenuIcon />
+            </IconButton>
+          </ClickAwayListener>
+          <div>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleClose("/")}>
+                {" "}
+                <ListItemIcon>
+                  <HomeIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Home</ListItemText>
+              </MenuItem>
+              <MenuItem onClick={handleClose("/archive")}>
+                <ListItemIcon>
+                  <AnalyticsIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Player Data</ListItemText>
+              </MenuItem>
+            </Menu>
+          </div>
+          <Box sx={{ overflow: "hidden" }}>
+            {" "}
+            {/* Apply overflow hidden to container */}
+            <Avatar
+              alt="Remy Sharp"
+              src={logo}
+              className="image"
+              sx={{ width: 150, height: 70, pb: 0, lineHeight: 0 }}
+            />
+          </Box>
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
 }
