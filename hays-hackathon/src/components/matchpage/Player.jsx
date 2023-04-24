@@ -1,4 +1,5 @@
 import {useDraggable} from '@dnd-kit/core';
+import PlayerCard from './PlayerCard';
 
 const Player = (props) => {
   const {attributes, listeners, setNodeRef, transform} = useDraggable({
@@ -9,8 +10,9 @@ const Player = (props) => {
   } : undefined;
 
   return (
-      <button className="player" ref={setNodeRef} style={style} {...listeners} {...attributes}>
+      <button className="player tooltip" ref={setNodeRef} style={style} {...listeners} {...attributes} >
         {props.children}
+        <PlayerCard forename={props.forename} surname={props.surname} mins={props.mins} energy={props.energy} />
       </button>
   );
 };
