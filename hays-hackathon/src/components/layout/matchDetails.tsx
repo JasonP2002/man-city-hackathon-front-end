@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../layout/layout";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -80,7 +80,10 @@ export default function MatchDetails() {
     axios
       .get("http://localhost:8888/team")
       .then((response) => {
-        setTeams(response.data);
+        const filteredTeams = response.data.filter(
+          (t: { name: string }) => t.name !== "Manchester City WFC"
+        );
+        setTeams(filteredTeams);
       })
       .catch((error) => {
         console.log(error);
